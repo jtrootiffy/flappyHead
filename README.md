@@ -122,7 +122,7 @@ offline the game falls back to a bundled monospace stack, so nothing breaks.
 flappy-bird/
 ├── index.html          # markup: play-field canvas + high-res flyer layer,
 │                       #         HUD, the three screens
-├── favicon.svg         # "JTL" app icon (white pixel letters on a dark tile)
+├── favicon.svg         # "JTL" app icon (white pixel letters, transparent bg)
 ├── vercel.json         # static hosting config (no build) — see Deploy below
 ├── .gitignore          # ignores .vercel and OS clutter
 ├── css/

@@ -1,17 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="40" height="40" role="img" aria-label="JTL">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="2 12 36 16" width="36" height="16" role="img" aria-label="JTL">
   <title>JTL</title>
 
-  <!-- App-tinted rounded tile, so the white letters stay legible on any
-       browser chrome (light or dark). -->
-  <defs>
-    <linearGradient id="jtl-bg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#1d3a4d" />
-      <stop offset="1" stop-color="#0b1620" />
-    </linearGradient>
-  </defs>
-  <rect width="40" height="40" rx="7" fill="url(#jtl-bg)" />
-
-  <!-- "J T L" in the same 5x7 pixel style as the in-canvas score font. -->
+  <!-- Letters only, on a transparent background. "J T L" rendered in the
+       same 5x7 pixel style as the in-canvas score font. -->
   <g fill="#ffffff" shape-rendering="crispEdges" transform="translate(3 13) scale(2)">
     <!-- J -->
     <rect x="2" y="0" width="3" height="1" />
