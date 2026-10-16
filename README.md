@@ -4,22 +4,37 @@ A self-contained, retro pixel-art take on Flappy Bird, built with plain
 HTML, CSS and an HTML5 `<canvas>`. No build step, no dependencies, no
 framework — open the page and play.
 
-## Play
+## Play it now
 
-The game is completely static, so any of these work:
+**<https://flappyhead.vercel.app>**
 
-**Option A — just open it**
+## Get the code
 
-Open `flappy-bird/index.html` in a browser. Everything (scripts, styles,
-art) is local, so it runs from `file://` with no server.
+The game is completely static — no build step, no dependencies, no framework.
+Grab the folder and open the page.
 
-**Option B — serve it**
+**Option A — clone**
 
 ```bash
-# from the repository root
-npx serve flappy-bird
+git clone https://github.com/jtrootiffy/flappyHead.git
+cd flappyHead
+```
+
+**Option B — download the ZIP**
+
+1. Open <https://github.com/jtrootiffy/flappyHead>.
+2. Choose **Code → Download ZIP**.
+3. Unzip it anywhere you like.
+
+**Then run it** — double-click `index.html`. Everything (scripts, styles, art)
+is local, so it runs straight from `file://` with no server.
+
+Prefer a local server? From the unzipped folder:
+
+```bash
+npx serve .
 # or
-python -m http.server 8000 --directory flappy-bird
+python -m http.server 8000
 ```
 
 Then browse to the printed URL.
@@ -41,50 +56,10 @@ never starts the run — only a flap input does.
 ### Pick your flyer
 
 Every run is preceded by a short "choose your flyer" screen: the four PNG
-heads in `flappy-bird/heads/` are shown as tappable portraits, the selection
+heads in `heads/` are shown as tappable portraits, the selection
 is highlighted and previewed live (the head bobs on the spot), and it is
 remembered between sessions. Pick with a click/tap, `←`/`→`, or the number
 keys `1`–`4`; press `Space`/tap the field to launch.
-
----
-
-## Deploy to Vercel
-
-`flappy-bird/` is a **fully static site** — no build step, no dependencies, no
-server — so the folder itself *is* the Vercel project root. `index.html`,
-`css/`, `js/`, `heads/` and `favicon.svg` all sit at its top level and every
-path in the code is relative (which also means it works under a subpath).
-
-**Option A — drag & drop**
-
-1. Open <https://vercel.com/new>.
-2. Drag the **`flappy-bird` folder itself** onto the page — not a parent
-   folder that contains other projects.
-3. Framework preset: **Other**. Leave *Build Command* and *Output Directory*
-   empty.
-4. Deploy. Your project then serves the game at `/`.
-
-**Option B — Vercel CLI**
-
-```bash
-cd flappy-bird
-npx vercel          # preview deployment
-npx vercel --prod   # production deployment
-```
-
-**Option C — Git**
-
-Push `flappy-bird/` as the repository root and import it on Vercel, or push a
-larger repo and set the project's **Root Directory** to `flappy-bird`. No
-other settings need changing.
-
-`vercel.json` ships sensible defaults (extensionless URLs plus a couple of
-security headers) and there is nothing else to configure. The pixel font is
-an optional enhancement fetched from Google Fonts; if it is blocked or
-offline the game falls back to a bundled monospace stack, so nothing breaks.
-
-> Upload the game folder on its own. If you upload the surrounding workspace
-> instead, the game ends up served from `/flappy-bird/` rather than `/`.
 
 ---
 
@@ -119,12 +94,11 @@ offline the game falls back to a bundled monospace stack, so nothing breaks.
 ## Project layout
 
 ```
-flappy-bird/
+flappyHead/
 ├── index.html          # markup: play-field canvas + high-res flyer layer,
 │                       #         HUD, the three screens
 ├── favicon.svg         # "JTL" app icon (white pixel letters, transparent bg)
-├── vercel.json         # static hosting config (no build) — see Deploy below
-├── .gitignore          # ignores .vercel and OS clutter
+├── .gitignore          # ignores local deploy config + OS clutter
 ├── css/
 │   └── style.css       # layout, pixel UI, flyer picker, CRT overlay, responsive
 ├── heads/              # the selectable flyers (your PNGs)

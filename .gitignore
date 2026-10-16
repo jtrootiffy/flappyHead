@@ -1,5 +1,6 @@
-# Vercel
+# Local deployment config — not part of the public repo
 .vercel
+vercel.json
 
 # OS clutter
 .DS_Store
