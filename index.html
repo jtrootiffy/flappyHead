@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#0b1620" />
+    <meta
+      name="description"
+      content="Retro Flappy - a nostalgic 8-bit style Flappy Bird game built with HTML5 Canvas."
+    />
+    <title>Retro Flappy</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
+    <!-- Pixel font. Injected after load (see js/main.js) so a slow or absent
+         network can never delay the page, and the monospace fallback is used. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <div class="app">
+      <div class="stage crt-on" id="stage">
+        <!-- ---------------- game world (canvas) ---------------- -->
+        <canvas id="game" width="288" height="512" aria-label="Retro Flappy play field"></canvas>
+
+        <!-- The chosen head is redrawn here at device resolution so the PNG
+             stays sharp instead of being pixelated up with the play field. -->
+        <canvas id="flyer" class="flyer-layer" aria-hidden="true"></canvas>
+
+        <!-- ---------------- CRT overlay ---------------- -->
+        <div class="crt" aria-hidden="true">
+          <div class="crt__scanlines"></div>
+          <div class="crt__vignette"></div>
+          <div class="crt__flicker"></div>
+        </div>
+
+        <!-- ---------------- top-right controls ---------------- -->
+        <div class="hud">
+          <button
+            id="btn-sound"
+            class="icon-btn"
+            type="button"
+            aria-pressed="true"
+            aria-label="Sound on. Click to mute."
+            title="Sound: on"
+          >
+            <svg class="ico" viewBox="0 0 16 16" aria-hidden="true">
+              <path
+                class="ico-on"
+                d="M1 6h3l4-3v10l-4-3H1zM10 5h2v2h-2zM12 6h2v4h-2zM10 9h2v2h-2z"
+              />
+              <path
+                class="ico-off"
+                hidden
+                d="M1 6h3l4-3v10l-4-3H1zM9 5h2v2H9zM11 7h2v2h-2zM13 9h2v2h-2zM13 5h2v2h-2zM11 7h2v2h-2zM9 9h2v2H9z"
+              />
+            </svg>
+          </button>
+
+          <button
+            id="btn-crt"
+            class="icon-btn"
+            type="button"
+            aria-pressed="true"
+            aria-label="CRT effect on. Click to disable."
+            title="CRT effect: on"
+          >
+            <svg class="ico" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M1 1h14v2H1zM1 3h2v8H1zM13 3h2v8h-2zM1 11h14v2H1zM5 13h6v2H5z" />
+              <path class="ico-glow" d="M3 4h10v1H3zM3 6h10v1H3zM3 8h10v1H3z" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- ---------------- START SCREEN ---------------- -->
+        <section id="screen-menu" class="screen screen--menu" aria-label="Main menu">
+          <header class="title">
+            <p class="title__top pixel">RETRO</p>
+            <h1 class="title__main pixel">FLAPPY</h1>
+          </header>
+
+          <div class="spacer" aria-hidden="true"></div>
+
+          <div class="menu-bottom">
+            <p class="pixel blink prompt">PRESS SPACE TO START</p>
+
+            <button id="btn-start" class="btn pixel" type="button">START GAME</button>
+
+            <ul class="controls" aria-label="Controls">
+              <li>
+                <kbd>SPACE</kbd>
+                <kbd>UP</kbd>
+                <kbd>CLICK</kbd>
+                <kbd>TAP</kbd>
+              </li>
+              <li class="controls__caption">KEYBOARD / MOUSE / TOUCH</li>
+              <li class="controls__caption">ARROWS / 1-4 PICK FLYER</li>
+            </ul>
+
+            <p class="pixel dim">BEST <b id="menu-best">0</b></p>
+          </div>
+        </section>
+
+        <!-- ---------------- CHOOSE FLYER / READY SCREEN ---------------- -->
+        <div id="screen-ready" class="screen screen--ready" hidden>
+          <div class="spacer" aria-hidden="true"></div>
+          <div class="select">
+            <p class="pixel ready-title">CHOOSE YOUR FLYER</p>
+
+            <div
+              id="flyers"
+              class="flyers"
+              role="group"
+              aria-label="Choose your flyer"
+            ></div>
+
+            <p class="pixel flyer-name" id="flyer-name">ANGEL</p>
+
+            <p class="pixel blink prompt">PRESS SPACE TO FLAP</p>
+            <p class="pixel dim">ARROWS / 1-4 TO CHANGE</p>
+          </div>
+          <div class="spacer" aria-hidden="true"></div>
+        </div>
+
+        <!-- ---------------- GAME OVER SCREEN ---------------- -->
+        <section id="screen-over" class="screen screen--over" hidden aria-label="Game over">
+          <div class="spacer" aria-hidden="true"></div>
+
+          <div class="dialog">
+            <h2 class="pixel dialog__title">GAME OVER</h2>
+
+            <div class="score-rows">
+              <p><span>SCORE</span><b id="over-score">0</b></p>
+              <p><span>BEST</span><b id="over-best">0</b></p>
+            </div>
+
+            <p id="over-new-best" class="pixel new-best blink" hidden>NEW BEST!</p>
+
+            <button id="btn-retry" class="btn pixel" type="button">TRY AGAIN</button>
+            <p class="pixel dim">OR PRESS SPACE</p>
+          </div>
+
+          <div class="spacer" aria-hidden="true"></div>
+        </section>
+
+        <p id="live-region" class="sr-only" aria-live="polite"></p>
+      </div>
+    </div>
+
+    <noscript>
+      <p class="noscript">Retro Flappy needs JavaScript enabled to run.</p>
+    </noscript>
+
+    <!-- Order matters: core -> systems -> simulation -> loop -->
+    <script src="js/core.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/sprites.js"></script>
+    <script src="js/heads.js"></script>
+    <script src="js/background.js"></script>
+    <script src="js/entities.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/renderer.js"></script>
+    <script src="js/input.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

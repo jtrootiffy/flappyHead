@@ -1,0 +1,7 @@
+# Vercel
+.vercel
+
+# OS clutter
+.DS_Store
+Thumbs.db
+desktop.ini

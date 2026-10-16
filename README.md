@@ -48,6 +48,46 @@ keys `1`–`4`; press `Space`/tap the field to launch.
 
 ---
 
+## Deploy to Vercel
+
+`flappy-bird/` is a **fully static site** — no build step, no dependencies, no
+server — so the folder itself *is* the Vercel project root. `index.html`,
+`css/`, `js/`, `heads/` and `favicon.svg` all sit at its top level and every
+path in the code is relative (which also means it works under a subpath).
+
+**Option A — drag & drop**
+
+1. Open <https://vercel.com/new>.
+2. Drag the **`flappy-bird` folder itself** onto the page — not a parent
+   folder that contains other projects.
+3. Framework preset: **Other**. Leave *Build Command* and *Output Directory*
+   empty.
+4. Deploy. Your project then serves the game at `/`.
+
+**Option B — Vercel CLI**
+
+```bash
+cd flappy-bird
+npx vercel          # preview deployment
+npx vercel --prod   # production deployment
+```
+
+**Option C — Git**
+
+Push `flappy-bird/` as the repository root and import it on Vercel, or push a
+larger repo and set the project's **Root Directory** to `flappy-bird`. No
+other settings need changing.
+
+`vercel.json` ships sensible defaults (extensionless URLs plus a couple of
+security headers) and there is nothing else to configure. The pixel font is
+an optional enhancement fetched from Google Fonts; if it is blocked or
+offline the game falls back to a bundled monospace stack, so nothing breaks.
+
+> Upload the game folder on its own. If you upload the surrounding workspace
+> instead, the game ends up served from `/flappy-bird/` rather than `/`.
+
+---
+
 ## Features
 
 - **Choose your flyer** — pick one of four head PNGs on the pre-run screen;
@@ -83,6 +123,8 @@ flappy-bird/
 ├── index.html          # markup: play-field canvas + high-res flyer layer,
 │                       #         HUD, the three screens
 ├── favicon.svg         # "JTL" app icon (white pixel letters on a dark tile)
+├── vercel.json         # static hosting config (no build) — see Deploy below
+├── .gitignore          # ignores .vercel and OS clutter
 ├── css/
 │   └── style.css       # layout, pixel UI, flyer picker, CRT overlay, responsive
 ├── heads/              # the selectable flyers (your PNGs)
@@ -215,4 +257,3 @@ selectable flyers in `heads/`.
 ## License
 
 MIT — do whatever you like.
-"# flappyHead" 
