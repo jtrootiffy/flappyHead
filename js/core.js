@@ -142,11 +142,14 @@ window.RF = window.RF || {};
     };
   };
 
+  const STORE_PREFIX = "flappy-head:";
+  const LEGACY_PREFIX = "retro-flappy:"; // pre-rename values, migrated once below
+
   RF.Storage = {
-    BEST_KEY: "retro-flappy:best",
-    MUTE_KEY: "retro-flappy:muted",
-    CRT_KEY: "retro-flappy:crt",
-    HEAD_KEY: "retro-flappy:head",
+    BEST_KEY: STORE_PREFIX + "best",
+    MUTE_KEY: STORE_PREFIX + "muted",
+    CRT_KEY: STORE_PREFIX + "crt",
+    HEAD_KEY: STORE_PREFIX + "head",
 
     read(key, fallback) {
       try {
@@ -162,8 +165,31 @@ window.RF = window.RF || {};
       } catch (e) {
         /* private mode / disabled storage — non fatal */
       }
+    },
+
+    /**
+     * Carry values over from the old "retro-flappy:" namespace, so renaming
+     * the game never costs a player their best score or settings.
+     */
+    migrate() {
+      [this.BEST_KEY, this.MUTE_KEY, this.CRT_KEY, this.HEAD_KEY].forEach(
+        (key) => {
+          if (this.read(key, null) !== null) return; // nothing to do
+          const legacyKey = LEGACY_PREFIX + key.slice(STORE_PREFIX.length);
+          const old = this.read(legacyKey, null);
+          if (old === null) return;
+          this.write(key, old);
+          try {
+            window.localStorage.removeItem(legacyKey);
+          } catch (e) {
+            /* non fatal */
+          }
+        }
+      );
     }
   };
+
+  RF.Storage.migrate();
 
   RF.getBest = function () {
     const raw = parseInt(RF.Storage.read(RF.Storage.BEST_KEY, "0"), 10);

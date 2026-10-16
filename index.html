@@ -9,9 +9,9 @@
     <meta name="theme-color" content="#0b1620" />
     <meta
       name="description"
-      content="Retro Flappy - a nostalgic 8-bit style Flappy Bird game built with HTML5 Canvas."
+      content="Flappy Head - a nostalgic 8-bit style Flappy Bird game built with HTML5 Canvas."
     />
-    <title>Retro Flappy</title>
+    <title>Flappy Head</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
     <!-- Pixel font. Injected after load (see js/main.js) so a slow or absent
@@ -26,7 +26,7 @@
     <div class="app">
       <div class="stage crt-on" id="stage">
         <!-- ---------------- game world (canvas) ---------------- -->
-        <canvas id="game" width="288" height="512" aria-label="Retro Flappy play field"></canvas>
+        <canvas id="game" width="288" height="512" aria-label="Flappy Head play field"></canvas>
 
         <!-- The chosen head is redrawn here at device resolution so the PNG
              stays sharp instead of being pixelated up with the play field. -->
@@ -80,8 +80,10 @@
         <!-- ---------------- START SCREEN ---------------- -->
         <section id="screen-menu" class="screen screen--menu" aria-label="Main menu">
           <header class="title">
-            <p class="title__top pixel">RETRO</p>
-            <h1 class="title__main pixel">FLAPPY</h1>
+            <h1 class="title__lockup">
+              <span class="title__top pixel">FLAPPY</span>
+              <span class="title__main pixel">HEAD</span>
+            </h1>
           </header>
 
           <div class="spacer" aria-hidden="true"></div>
@@ -153,7 +155,7 @@
     </div>
 
     <noscript>
-      <p class="noscript">Retro Flappy needs JavaScript enabled to run.</p>
+      <p class="noscript">Flappy Head needs JavaScript enabled to run.</p>
     </noscript>
 
     <!-- Order matters: core -> systems -> simulation -> loop -->

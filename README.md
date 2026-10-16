@@ -1,4 +1,4 @@
-# Retro Flappy
+# Flappy Head
 
 A self-contained, retro pixel-art take on Flappy Bird, built with plain
 HTML, CSS and an HTML5 `<canvas>`. No build step, no dependencies, no
@@ -107,7 +107,7 @@ offline the game falls back to a bundled monospace stack, so nothing breaks.
 - **Juice** — flap/impact particles, a score flash, screen shake on death and
   a tumbling death animation before the game-over card.
 - **Persistence** — best score, mute state and CRT state survive reloads
-  (`localStorage`, namespaced under `retro-flappy:`).
+  (`localStorage`, namespaced under `flappy-head:`).
 - **3 screens** — animated start screen, a "choose your flyer" briefing, and
   a game-over card with score, best and a `NEW BEST!` callout.
 - **Accessible & responsive** — keyboard focus rings, a polite live region
@@ -231,7 +231,7 @@ The game was checked end-to-end in a headless browser:
   is what actually flies (verified by sampling the canvas)
 - clicking a portrait changes the selection **without** starting the run;
   `←`/`→` cycle (with wrap) and `1`–`4` pick directly
-- the choice persists across reloads (`retro-flappy:head`)
+- the choice persists across reloads (`flappy-head:head`)
 - ground/pipe collision → `dying` → `over`; best persisted to `localStorage`
 - `TRY AGAIN` → ready; a single keypress does not double-act
 - mute + CRT toggles persist across reloads

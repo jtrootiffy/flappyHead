@@ -1,5 +1,5 @@
 /* =========================================================================
- * Retro Flappy — stylesheet
+ * Flappy Head — stylesheet
  * Layout, pixel UI, CRT overlay. All sizes derive from --u, which is
  * (stage width / 288) set by ui.js, so the UI scales with the game.
  * ========================================================================= */
@@ -295,6 +295,16 @@ body {
 
 .title {
   margin-top: calc(var(--u) * 10);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--u) * 2);
+}
+
+/* The two-line wordmark lives inside one <h1>, so the heading reads
+   "Flappy Head" while each line keeps its own styling. */
+.title__lockup {
+  margin: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
