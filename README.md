@@ -44,7 +44,7 @@ Then browse to the printed URL.
 | Action | Input |
 | --- | --- |
 | Flap / start / retry | `Space`, `ArrowUp`, click, or tap |
-| Choose your flyer | Click a portrait, `←` / `→` (or `A`/`D`), or number keys `1`–`4` |
+| Choose your flyer | Click a portrait, `←` / `→` (or `A`/`D`), or number keys `1`–`5` |
 | Mute / unmute | Speaker button (top-right) |
 | CRT effect on / off | Monitor button (top-right) |
 
@@ -55,17 +55,17 @@ never starts the run — only a flap input does.
 
 ### Pick your flyer
 
-Every run is preceded by a short "choose your flyer" screen: the four PNG
+Every run is preceded by a short "choose your flyer" screen: the five PNG
 heads in `heads/` are shown as tappable portraits, the selection
 is highlighted and previewed live (the head bobs on the spot), and it is
 remembered between sessions. Pick with a click/tap, `←`/`→`, or the number
-keys `1`–`4`; press `Space`/tap the field to launch.
+keys `1`–`5`; press `Space`/tap the field to launch.
 
 ---
 
 ## Features
 
-- **Choose your flyer** — pick one of four head PNGs on the pre-run screen;
+- **Choose your flyer** — pick one of five head PNGs on the pre-run screen;
   each is auto-fit into the flyer slot (whole image, aspect ratio kept) and
   rotates with the bird's tilt. It is drawn on a separate device-resolution
   layer, so the photo-ish head stays **smooth and sharp** instead of being
@@ -104,6 +104,7 @@ flappyHead/
 ├── heads/              # the selectable flyers (your PNGs)
 │   ├── Angel.png
 │   ├── Joven.png
+│   ├── Piawaps.png
 │   ├── Raven.png
 │   └── Troy.png
 └── js/
@@ -185,7 +186,7 @@ upscaling would destroy it. Instead each PNG is pre-rendered once at
 `HEAD_RES` (256px), and every frame it is redrawn — same position, tilt and
 screen shake — onto a second canvas (`#flyer`) whose backing store matches the
 display's real pixel size (`CSS size × devicePixelRatio`, capped at 3). The
-render loop still only blits four tiny bitmaps at boot; per frame it is one
+render loop still only blits five tiny bitmaps at boot; per frame it is one
 scaled, rotated `drawImage`.
 
 ---
@@ -195,16 +196,16 @@ scaled, rotated `drawImage`.
 The game was checked end-to-end in a headless browser:
 
 - boot → menu renders; `Space` → ready → playing; autopilot scores
-- all four head PNGs load; each renders non-empty pixels in the flyer slot
+- all five head PNGs load; each renders non-empty pixels in the flyer slot
 - the chosen head is drawn on the `#flyer` layer at device resolution and
   stays aligned with the bird (centre offset ≈ the artwork's own asymmetry);
   the layer resizes with the viewport and re-renders after a resize
 - the head is anti-aliased, not pixelated — the drawn region shows ~200
   distinct alpha values and 600+ distinct colours
-- the picker shows 4 portraits, highlights the selection, and the chosen head
+- the picker shows 5 portraits, highlights the selection, and the chosen head
   is what actually flies (verified by sampling the canvas)
 - clicking a portrait changes the selection **without** starting the run;
-  `←`/`→` cycle (with wrap) and `1`–`4` pick directly
+  `←`/`→` cycle (with wrap) and `1`–`5` pick directly
 - the choice persists across reloads (`flappy-head:head`)
 - ground/pipe collision → `dying` → `over`; best persisted to `localStorage`
 - `TRY AGAIN` → ready; a single keypress does not double-act

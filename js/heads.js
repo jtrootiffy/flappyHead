@@ -13,14 +13,15 @@
 
   // Heads are pre-rendered once at this square resolution, then drawn on the
   // device-resolution flyer layer. 256px covers high-DPI phones and big
-  // desktop windows while keeping the four bitmaps tiny.
+  // desktop windows while keeping the bitmaps tiny.
   const HEAD_RES = 256;
 
   const HEADS = [
     { id: "angel", name: "ANGEL", src: "heads/Angel.png" },
     { id: "joven", name: "JOVEN", src: "heads/Joven.png" },
     { id: "raven", name: "RAVEN", src: "heads/Raven.png" },
-    { id: "troy", name: "TROY", src: "heads/Troy.png" }
+    { id: "troy", name: "TROY", src: "heads/Troy.png" },
+    { id: "piawaps", name: "PIAWAPS", src: "heads/Piawaps.png" }
   ];
 
   const Heads = {

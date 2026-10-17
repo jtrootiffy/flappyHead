@@ -31,7 +31,9 @@
     Digit3: 2,
     Numpad3: 2,
     Digit4: 3,
-    Numpad4: 3
+    Numpad4: 3,
+    Digit5: 4,
+    Numpad5: 4
   };
 
   const Input = {
